@@ -56,6 +56,7 @@ namespace UI
             {
                 var interviewsByCandidate = GetInterviewsByCandidate();
 
+                // בדיקת אם יש ראיונות למועמד עם ה-Id שנבחר
                 if (interviewsByCandidate.TryGetValue(selectedId, out List<Interview>? interviews))
                 {
                     myDataGrid.ItemsSource = interviews;
@@ -68,9 +69,9 @@ namespace UI
         //פונקציה ההופכת את כל הראיונות למילון
         private Dictionary<int, List<Interview>> GetInterviewsByCandidate()
         {
+            // קבלת כל הראיונות
             List<Interview> allInterviews = conn.GetAllInterviews();
 
-            var interviewsByCandidate = allInterviews.GroupBy(i => i.CandidateId).ToDictionary(g => g.Key, g => g.OrderBy(i => i.InterviewDate).ToList());
 
             return interviewsByCandidate;
         }
